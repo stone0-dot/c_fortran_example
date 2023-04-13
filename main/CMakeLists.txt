@@ -14,10 +14,11 @@ add_custom_target(
 )
 
 add_dependencies(${CMAKE_PROJECT_NAME} generate_c_header)
+add_dependencies(generate_c_header fortranLib)
 
 add_custom_command(
     OUTPUT ${CMAKE_SOURCE_DIR}/main/inc/c_interface.h
-    COMMAND gfortran -fc-prototypes -fsyntax-only ${CMAKE_SOURCE_DIR}/fortran_prj/c_interface.f90 > ${CMAKE_SOURCE_DIR}/main/inc/c_interface.h
+    COMMAND gfortran -fc-prototypes -fsyntax-only -I${CMAKE_BINARY_DIR}/fortran_prj/module ${CMAKE_SOURCE_DIR}/fortran_prj/c_interface.f90 > ${CMAKE_SOURCE_DIR}/main/inc/c_interface.h
     DEPENDS ${CMAKE_SOURCE_DIR}/fortran_prj/c_interface.f90
 )
 
