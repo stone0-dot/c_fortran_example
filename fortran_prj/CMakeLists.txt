@@ -17,6 +17,10 @@ add_library(fortranLib_static
         module_1.f90
         module_2.f90
 )
+
+# 避免并行构建时生成.mod文件冲突
+add_dependencies(fortranLib fortranLib_static) 
+
 set_target_properties(fortranLib_static PROPERTIES  OUTPUT_NAME "fortranLib")
 set_target_properties(fortranLib_static PROPERTIES CLEAN_DIRECT_OUTPUT 1)
 
