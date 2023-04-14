@@ -4,5 +4,4 @@ project(testproject)
 set(CMAKE_BUILD_TYPE Debug)
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/main)
-add_subdirectory(${CMAKE_SOURCE_DIR}/c_prj)
 add_subdirectory(${CMAKE_SOURCE_DIR}/fortran_prj)

@@ -1,5 +1,3 @@
-enable_language(C)
-
 aux_source_directory(. srcs)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/inc)
 
