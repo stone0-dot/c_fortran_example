@@ -9,19 +9,20 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/out)
 
 add_executable(${CMAKE_PROJECT_NAME} ${srcs})
 
+
+add_custom_target(
+    exist_f90_interface
+    DEPENDS ${CMAKE_SOURCE_DIR}/fortran_prj/c_interface.f90
+)
+
 add_custom_target(
     generate_c_header
-    DEPENDS ${CMAKE_SOURCE_DIR}/main/inc/c_interface.h
+    COMMAND ${CMAKE_COMMAND} -E echo \#pragma once > ${CMAKE_CURRENT_SOURCE_DIR}/inc/c_interface.h
+    COMMAND gfortran -fc-prototypes -fsyntax-only -I${CMAKE_BINARY_DIR}/fortran_prj/module ${CMAKE_SOURCE_DIR}/fortran_prj/c_interface.f90 >> ${CMAKE_CURRENT_SOURCE_DIR}/inc/c_interface.h
+    DEPENDS fortranLib exist_f90_interface
 )
 
 add_dependencies(${CMAKE_PROJECT_NAME} generate_c_header)
-add_dependencies(generate_c_header fortranLib)
-
-add_custom_command(
-    OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/inc/c_interface.h
-    COMMAND gfortran -fc-prototypes -fsyntax-only -I${CMAKE_BINARY_DIR}/fortran_prj/module ${CMAKE_SOURCE_DIR}/fortran_prj/c_interface.f90 > ${CMAKE_CURRENT_SOURCE_DIR}/inc/c_interface.h
-    DEPENDS ${CMAKE_SOURCE_DIR}/fortran_prj/c_interface.f90
-)
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
     cLib

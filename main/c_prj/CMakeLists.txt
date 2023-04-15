@@ -2,7 +2,7 @@ aux_source_directory(. srcs)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/inc)
 
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/out)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/c_prj/archive)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/main/c_prj/archive)
 
 add_library(cLib
     SHARED
